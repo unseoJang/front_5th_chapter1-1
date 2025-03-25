@@ -8,24 +8,22 @@ export const attachLoginHandler = () => {
     e.preventDefault();
 
     const username = form.querySelector("#username").value;
+    if (username) {
+      const user = {
+        username,
+        email: "",
+        bio: "",
+      };
 
-    const user = {
-      username,
-      email: "",
-      bio: "",
-    };
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("loggedIn", "true");
 
-    localStorage.setItem("user", JSON.stringify(user));
-    localStorage.setItem("loggedIn", "true");
+      state.loggedIn = true;
+      state.username = username;
 
-    // ✅ 여기서 바로 찍기
-    console.log("✅ 저장된 유저 정보:", localStorage.getItem("user"));
-
-    state.loggedIn = true;
-    state.username = username;
-
-    history.pushState(null, "", "/");
-    render();
+      history.pushState(null, "", "/");
+      render();
+    }
   });
 };
 
