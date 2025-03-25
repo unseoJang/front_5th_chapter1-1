@@ -42,13 +42,13 @@ https://unseoJang.github.io/front-5th-chapter1-1/
   - [x] 수정된 정보 LocalStorage에 저장
 
 #### 4) 컴포넌트 기반 구조 설계:
-- [ ] 재사용 가능한 컴포넌트 작성
-  - [ ] Header 컴포넌트
-  - [ ] Footer 컴포넌트
-- [ ] 페이지별 컴포넌트 작성
-  - [ ] HomePage 컴포넌트
-  - [ ] ProfilePage 컴포넌트
-  - [ ] NotFoundPage 컴포넌트
+- [x] 재사용 가능한 컴포넌트 작성
+  - [x] Header 컴포넌트
+  - [x] Footer 컴포넌트
+- [x] 페이지별 컴포넌트 작성
+  - [x] HomePage 컴포넌트
+  - [x] ProfilePage 컴포넌트
+  - [x] NotFoundPage 컴포넌트
 
 #### 5) 상태 관리 초기 구현:
 - [ ] 간단한 상태 관리 시스템 설계

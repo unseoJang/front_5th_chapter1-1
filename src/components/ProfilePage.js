@@ -1,4 +1,6 @@
-import { Header, Footer, state } from "../main.js";
+import { Header } from "./Header.js";
+import { Footer } from "./Footer.js";
+import { state } from "../main.js";
 
 export const profileConfimHandler = () => {
   document.getElementById("profile-form")?.addEventListener("submit", (e) => {
