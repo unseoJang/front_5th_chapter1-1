@@ -1,27 +1,32 @@
 import { Header } from "./Header.js";
 import { Footer } from "./Footer.js";
-import { state } from "../main.js";
+import { auth } from "../store/user.js";
+
+import { setLocalStorageItem } from "../utils/stroage.js";
 
 export const profileConfimHandler = () => {
   document.getElementById("profile-form")?.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const updatedUser = {
+    const user = {
       username: document.getElementById("username").value,
       email: document.getElementById("email").value,
       bio: document.getElementById("bio").value,
     };
 
-    localStorage.setItem("user", JSON.stringify(updatedUser));
+    console.log(user);
+
+    setLocalStorageItem("user", user);
+    auth.user = user;
   });
 };
 export const ProfilePage = () => {
-  const user = state.user || "";
+  const user = auth.user || "";
   return `
 	<div id="root">
 		<div class="bg-gray-100 min-h-screen flex justify-center">
 			<div class="max-w-md w-full">
-				${Header({ loggedIn: state.loggedIn })}
+				${Header({ loggedIn: auth.loggedIn })}
 
 				<main class="p-4">
 					<div class="bg-white p-8 rounded-lg shadow-md">
@@ -63,14 +68,7 @@ export const ProfilePage = () => {
 									class="block text-gray-700 text-sm font-bold mb-2"
 									>자기소개</label
 								>
-								<textarea
-									id="bio"
-									name="bio"
-									rows="4"
-									class="w-full p-2 border rounded"
-								>
-									안녕하세요, 항해플러스에서 열심히 공부하고 있는 홍길동입니다.</textarea
-								>
+<textarea id="bio" name="bio" rows="4" class="w-full p-2 border rounded">${user.bio || ""}</textarea>
 							</div>
 							<button
 								type="submit"

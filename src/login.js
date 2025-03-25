@@ -1,5 +1,6 @@
-import { state, render } from "./main.js";
-
+import { render } from "./main.js";
+import { auth } from "./store/user.js";
+import { setLocalStorageItem } from "./utils/stroage.js";
 export const attachLoginHandler = () => {
   const form = document.getElementById("login-form");
   if (!form) return;
@@ -15,13 +16,13 @@ export const attachLoginHandler = () => {
         bio: "",
       };
 
-      localStorage.setItem("user", JSON.stringify(user));
-      localStorage.setItem("loggedIn", "true");
+      setLocalStorageItem("user", user);
+      setLocalStorageItem("loggedIn", "true");
 
-      state.loggedIn = true;
-      state.loggedIn = true;
-      state.username = username;
-      state.user = user; // ✅ 이거 빠지면 ProfilePage에서 못 씀
+      auth.loggedIn = true;
+      auth.loggedIn = true;
+      auth.username = username;
+      auth.user = user; // ✅ 이거 빠지면 ProfilePage에서 못 씀
 
       history.pushState(null, "", "/");
       render();
