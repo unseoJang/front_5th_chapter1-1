@@ -7,30 +7,29 @@ export const attachLoginHandler = () => {
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    const username = form.querySelector("#username")?.value;
-    const password = form.querySelector("#password")?.value;
+    const username = form.querySelector("#username").value;
 
-    if (username && password) {
-      const user = {
-        username,
-        email: "",
-        bio: "",
-      };
-      localStorage.setItem("user", JSON.stringify(user));
-      localStorage.setItem("loggedIn", "true");
+    const user = {
+      username,
+      email: "",
+      bio: "",
+    };
 
-      state.loggedIn = true;
-      state.username = username;
+    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.setItem("loggedIn", "true");
 
-      history.pushState(null, "", "/");
-      render();
-    }
+    // ✅ 여기서 바로 찍기
+    console.log("✅ 저장된 유저 정보:", localStorage.getItem("user"));
+
+    state.loggedIn = true;
+    state.username = username;
+
+    history.pushState(null, "", "/");
+    render();
   });
 };
 
 export const LoginPage = () => {
-  // 이벤트 등록 바로 실행
-
   return `
   <main class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">

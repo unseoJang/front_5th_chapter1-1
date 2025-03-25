@@ -244,9 +244,13 @@ window.addEventListener("popstate", () => {
 export const render = () => {
   // ✅ 변경
   const root = document.getElementById("root");
-  if (root) {
-    root.innerHTML = App();
-  }
+  if (!root) return;
+
+  // ✅ localStorage 기반으로 상태 동기화
+  const storedUser = localStorage.getItem("user");
+  state.loggedIn = !!storedUser;
+
+  root.innerHTML = App();
 
   document.querySelectorAll("a").forEach((el) => {
     el.addEventListener("click", (e) => {
@@ -257,25 +261,26 @@ export const render = () => {
       render();
     });
 
+    // ✅ 로그인 이벤트 핸들러 연결
+    if (location.pathname === "/login") {
+      attachLoginHandler();
+    }
+
     // ✅ 로그아웃 버튼 이벤트 등록
-    const logoutBtn = document.querySelector("#logout");
-    logoutBtn?.addEventListener("click", (e) => {
-      e.preventDefault();
-      // localStorage 및 state 초기화
-      localStorage.removeItem("loggedIn");
-      localStorage.removeItem("userEmailOrPhoneNumber");
+    const logoutBtn = document.getElementById("logout");
+    if (logoutBtn) {
+      logoutBtn?.addEventListener("click", (e) => {
+        e.preventDefault();
+        // localStorage 및 state 초기화
+        localStorage.removeItem("user");
+        localStorage.removeItem("loggedIn");
 
-      state.loggedIn = false;
-      // 홈으로 이동
-      history.pushState(null, "", "/");
-      render();
-    });
+        state.loggedIn = false;
+        history.pushState(null, "", "/");
+        render();
+      });
+    }
   });
-
-  // ✅ 로그인 페이지일 때 핸들러 붙이기
-  if (location.pathname === "/login") {
-    attachLoginHandler();
-  }
 };
 
 render();
