@@ -1,4 +1,6 @@
-const state = {
+import { LoginPage, attachLoginHandler } from "./login.js";
+
+export const state = {
   loggedIn: false,
 };
 
@@ -6,7 +8,7 @@ const Header = ({ loggedIn }) => {
   const nav = loggedIn
     ? `
         <li><a href="/profile" class="${location.pathname === "/profile" ? "text-blue-600" : "text-gray-600"}">프로필</a></li>
-        <li><a href="/" class="text-gray-600">로그아웃</a></li>
+        <li><a href="/" id="logout" class="text-gray-600">로그아웃</a></li>
       `
     : `<li><a href="/login" class="text-gray-600">로그인</a></li>`;
 
@@ -144,30 +146,6 @@ const ErrorPage = () => `
   </main>
 `;
 
-const LoginPage = () => `
-  <main class="bg-gray-100 flex items-center justify-center min-h-screen">
-    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-      <h1 class="text-2xl font-bold text-center text-blue-600 mb-8">항해플러스</h1>
-      <form>
-        <div class="mb-4">
-          <input type="text" placeholder="이메일 또는 전화번호" class="w-full p-2 border rounded">
-        </div>
-        <div class="mb-6">
-          <input type="password" placeholder="비밀번호" class="w-full p-2 border rounded">
-        </div>
-        <button type="submit" class="w-full bg-blue-600 text-white p-2 rounded font-bold">로그인</button>
-      </form>
-      <div class="mt-4 text-center">
-        <a href="#" class="text-blue-600 text-sm">비밀번호를 잊으셨나요?</a>
-      </div>
-      <hr class="my-6">
-      <div class="text-center">
-        <button class="bg-green-500 text-white px-4 py-2 rounded font-bold">새 계정 만들기</button>
-      </div>
-    </div>
-  </main>
-`;
-
 const ProfilePage = () => `
   <div id="root">
     <div class="bg-gray-100 min-h-screen flex justify-center">
@@ -220,7 +198,7 @@ const ProfilePage = () => `
                   rows="4"
                   class="w-full p-2 border rounded"
                 >
-안녕하세요, 항해플러스에서 열심히 공부하고 있는 홍길동입니다.</textarea
+  안녕하세요, 항해플러스에서 열심히 공부하고 있는 홍길동입니다.</textarea
                 >
               </div>
               <button
@@ -263,18 +241,41 @@ window.addEventListener("popstate", () => {
 });
 
 // 페이지 이동
-const render = () => {
-  document.body.innerHTML = App();
+export const render = () => {
+  // ✅ 변경
+  const root = document.getElementById("root");
+  if (root) {
+    root.innerHTML = App();
+  }
 
   document.querySelectorAll("a").forEach((el) => {
     el.addEventListener("click", (e) => {
       e.preventDefault();
       const newPathName = e.target.href.replace(location.origin, "");
-      console.log(newPathName);
+      console.log("newPathName=>", newPathName);
       history.pushState(null, "", newPathName);
       render();
     });
+
+    // ✅ 로그아웃 버튼 이벤트 등록
+    const logoutBtn = document.querySelector("#logout");
+    logoutBtn?.addEventListener("click", (e) => {
+      e.preventDefault();
+      // localStorage 및 state 초기화
+      localStorage.removeItem("loggedIn");
+      localStorage.removeItem("userEmailOrPhoneNumber");
+
+      state.loggedIn = false;
+      // 홈으로 이동
+      history.pushState(null, "", "/");
+      render();
+    });
   });
+
+  // ✅ 로그인 페이지일 때 핸들러 붙이기
+  if (location.pathname === "/login") {
+    attachLoginHandler();
+  }
 };
 
 render();
