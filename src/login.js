@@ -19,7 +19,9 @@ export const attachLoginHandler = () => {
       localStorage.setItem("loggedIn", "true");
 
       state.loggedIn = true;
+      state.loggedIn = true;
       state.username = username;
+      state.user = user; // ✅ 이거 빠지면 ProfilePage에서 못 씀
 
       history.pushState(null, "", "/");
       render();
