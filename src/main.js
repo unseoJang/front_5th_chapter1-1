@@ -1,12 +1,12 @@
+import {
+  getLocalStorageItem,
+  removeLocalStorageItem,
+} from "./utils/stroage.js";
 import { LoginPage, attachLoginHandler } from "./login.js";
 import { ProfilePage, profileConfimHandler } from "./components/ProfilePage.js";
 import { HomePage } from "./components/HomePage.js";
 import { NotFoundPage } from "./components/NotFoundPage.js";
-
-export const state = {
-  loggedIn: localStorage.getItem("user") ? true : false,
-  user: localStorage.getItem("user"),
-};
+import { auth } from "./store/user.js";
 
 // 페이지 렌더링
 const App = () => {
@@ -14,7 +14,7 @@ const App = () => {
     return LoginPage();
   }
   if (location.pathname.includes("/profile")) {
-    if (state.loggedIn === false) {
+    if (!auth.loggedIn) {
       return LoginPage();
     } else {
       return ProfilePage();
@@ -26,56 +26,53 @@ const App = () => {
   return NotFoundPage();
 };
 
-// 뒤로가기, 앞으로가기
+// popstate 이벤트로 뒤/앞 이동 지원
 window.addEventListener("popstate", () => {
   render();
 });
 
-// 페이지 이동
 export const render = () => {
-  // ✅ 변경
   const root = document.getElementById("root");
   if (!root) return;
 
-  // ✅ localStorage 기반으로 상태 동기화
-  const storedUser = localStorage.getItem("user");
-  state.loggedIn = !!storedUser;
+  // ✅ 로그인 상태 동기화
+  auth.loggedIn = !!getLocalStorageItem("user");
 
+  // ✅ 페이지 렌더링
   root.innerHTML = App();
 
+  // ✅ 모든 링크에 SPA 라우팅 적용
   document.querySelectorAll("a").forEach((el) => {
     el.addEventListener("click", (e) => {
       e.preventDefault();
-      const newPathName = e.target.href.replace(location.origin, "");
-      console.log("newPathName=>", newPathName);
-      history.pushState(null, "", newPathName);
+      const newPath = e.target.href.replace(location.origin, "");
+      history.pushState(null, "", newPath);
       render();
     });
-
-    // ✅ 로그인 이벤트 핸들러 연결
-    if (location.pathname === "/login") {
-      attachLoginHandler();
-    }
-
-    if (location.pathname === "/profile") {
-      profileConfimHandler(); // ✅ 여기서 꼭 실행
-    }
-
-    // ✅ 로그아웃 버튼 이벤트 등록
-    const logoutBtn = document.getElementById("logout");
-    if (logoutBtn) {
-      logoutBtn?.addEventListener("click", (e) => {
-        e.preventDefault();
-        // localStorage 및 state 초기화
-        localStorage.removeItem("user");
-        localStorage.removeItem("loggedIn");
-
-        state.loggedIn = false;
-        history.pushState(null, "", "/");
-        render();
-      });
-    }
   });
+
+  // ✅ 로그인 핸들러 연결
+  if (location.pathname === "/login") {
+    attachLoginHandler();
+  }
+
+  // ✅ 프로필 수정 핸들러 연결
+  if (location.pathname === "/profile") {
+    profileConfimHandler();
+  }
+
+  // ✅ 로그아웃 버튼 핸들러 연결
+  const logoutBtn = document.getElementById("logout");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      removeLocalStorageItem("user");
+      auth.loggedIn = false;
+      history.pushState(null, "", "/");
+      render();
+    });
+  }
 };
 
+// 최초 렌더링
 render();

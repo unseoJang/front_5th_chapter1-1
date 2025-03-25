@@ -1,11 +1,12 @@
 import { Header } from "./Header.js";
 import { Footer } from "./Footer.js";
-import { state } from "../main.js";
+// import { state } from "../main.js";
+import { auth } from "../store/user.js";
 
 export const HomePage = () => `
 	<div class="bg-gray-100 min-h-screen flex justify-center">
 		<div class="max-w-md w-full">
-		 ${Header({ loggedIn: state.loggedIn })}
+		${Header({ loggedIn: auth.loggedIn })}
 			<main class="p-4">
 				<div class="mb-4 bg-white rounded-lg shadow p-4">
 					<textarea class="w-full p-2 border rounded" placeholder="무슨 생각을 하고 계신가요?"></textarea>
