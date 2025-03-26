@@ -22,7 +22,6 @@ export const render = () => {
   root.innerHTML = Layout(pageContent);
 
   document.addEventListener("click", (e) => {
-    console.log("aaaaaaaaaaaaaa");
     const target = e.target.closest("a");
     if (!target || !target.getAttribute("href")) return;
     if (e.defaultPrevented) return;
