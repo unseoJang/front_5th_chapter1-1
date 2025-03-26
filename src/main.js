@@ -1,30 +1,13 @@
+import Layout from "./components/layout.js";
 import {
   getLocalStorageItem,
   removeLocalStorageItem,
 } from "./utils/stroage.js";
-import { LoginPage, attachLoginHandler } from "./login.js";
-import { ProfilePage, profileConfimHandler } from "./components/ProfilePage.js";
-import { HomePage } from "./components/HomePage.js";
-import { NotFoundPage } from "./components/NotFoundPage.js";
-import { auth } from "./store/user.js";
+import { attachLoginHandler } from "./login.js";
+import { profileConfimHandler } from "./components/ProfilePage.js";
 
-// 페이지 렌더링
-const App = () => {
-  if (location.pathname.includes("/login")) {
-    return LoginPage();
-  }
-  if (location.pathname.includes("/profile")) {
-    if (!auth.loggedIn) {
-      return LoginPage();
-    } else {
-      return ProfilePage();
-    }
-  }
-  if (location.pathname === "/") {
-    return HomePage();
-  }
-  return NotFoundPage();
-};
+import { auth } from "./store/user.js";
+import { App } from "./app.js";
 
 // popstate 이벤트로 뒤/앞 이동 지원
 window.addEventListener("popstate", () => {
@@ -38,17 +21,32 @@ export const render = () => {
   // ✅ 로그인 상태 동기화
   auth.loggedIn = !!getLocalStorageItem("user");
 
+  // ✅ 페이지 콘텐츠 가져오기
+  const pageContent = App(); // ex) LoginPage(), HomePage() 등
+
   // ✅ 페이지 렌더링
-  root.innerHTML = App();
+  root.innerHTML = Layout(pageContent);
 
   // ✅ 모든 링크에 SPA 라우팅 적용
-  document.querySelectorAll("a").forEach((el) => {
-    el.addEventListener("click", (e) => {
-      e.preventDefault();
-      const newPath = e.target.href.replace(location.origin, "");
-      history.pushState(null, "", newPath);
-      render();
-    });
+  // document.querySelectorAll("a").forEach((el) => {
+  //   el.addEventListener("click", (e) => {
+  //     e.preventDefault();
+  //     const newPath = e.target.href.replace(location.origin, "");
+  //     history.pushState(null, "", newPath);
+  //     render();
+  //   });
+  // });
+  document.addEventListener("click", (e) => {
+    const target = e.target.closest("a");
+    if (!target || !target.getAttribute("href")) return;
+
+    // ❗ 이벤트 전파가 막혔다면 라우팅 중단
+    if (e.defaultPrevented) return;
+
+    e.preventDefault();
+    const newPath = target.getAttribute("href");
+    history.pushState(null, "", newPath);
+    render();
   });
 
   // ✅ 로그인 핸들러 연결

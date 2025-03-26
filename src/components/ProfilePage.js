@@ -1,5 +1,3 @@
-import { Header } from "./Header.js";
-import { Footer } from "./Footer.js";
 import { auth } from "../store/user.js";
 
 import { setLocalStorageItem } from "../utils/stroage.js";
@@ -23,11 +21,6 @@ export const profileConfimHandler = () => {
 export const ProfilePage = () => {
   const user = auth.user || "";
   return `
-	<div id="root">
-		<div class="bg-gray-100 min-h-screen flex justify-center">
-			<div class="max-w-md w-full">
-				${Header({ loggedIn: auth.loggedIn })}
-
 				<main class="p-4">
 					<div class="bg-white p-8 rounded-lg shadow-md">
 						<h2 class="text-2xl font-bold text-center text-blue-600 mb-8">
@@ -78,11 +71,6 @@ export const ProfilePage = () => {
 							</button>
 						</form>
 					</div>
-				</main>
-
-				${Footer}
-			</div>
-		</div>
-	</div>
+				</main>	
 `;
 };
