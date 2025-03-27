@@ -16,6 +16,10 @@ export const App = () => {
   const path = getCurrentPath();
   console.log("path", location.origin);
 
+  if (path === "/front_5th_chapter1-1/") {
+    return HomePage(); // ✅ 테스트에서도 통과
+  }
+
   if (path === "/login") {
     if (auth.loggedIn) {
       history.pushState(null, "", "/");
