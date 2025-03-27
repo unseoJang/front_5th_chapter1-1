@@ -43,6 +43,10 @@ export const render = () => {
     profileConfimHandler();
   }
 
+  if (path === "/front_5th_chapter1-1/") {
+    history.pushState(null, "", "/");
+  }
+
   // ✅ SPA 링크 클릭 처리
   document.addEventListener("click", (e) => {
     const target = e.target.closest("a");
