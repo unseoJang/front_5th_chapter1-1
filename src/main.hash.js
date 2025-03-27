@@ -7,7 +7,7 @@ import {
 import { attachLoginHandler } from "./login.js";
 import { profileConfimHandler } from "./components/ProfilePage.js";
 import { auth } from "./store/user.js";
-import { App } from "./app.js";
+import { App } from "./App.js";
 import { getCurrentPath } from "./utils/route.js";
 
 export const render = () => {
