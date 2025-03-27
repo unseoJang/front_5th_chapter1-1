@@ -42,6 +42,8 @@ export const render = () => {
   //     render();
   //   });
   // });
+
+  console.log("hash", location);
   document.addEventListener("click", (e) => {
     const target = e.target.closest("a");
     if (!target || !target.getAttribute("href")) return;
