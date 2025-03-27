@@ -1,13 +1,14 @@
 // utils/route.js
+const getBase = () => import.meta.env.BASE_URL.replace(/\/$/, ""); // ex: "/front_5th_chapter1-1"
+
 export const getCurrentPath = () => {
   const hash = location.hash;
   if (hash) {
     return hash.replace("#", "") || "/";
   }
-  return location.pathname;
+  return location.pathname.replace(getBase(), "") || "/";
 };
 
-// 현재 라우터 방식에 따라 prefix 결정 (해시 라우터면 "#", 아니면 "")
 export const pathPrefix = () => {
-  return location.hash ? "#" : "";
+  return location.hash ? "#" : getBase(); // "#", or "/front_5th_chapter1-1"
 };
