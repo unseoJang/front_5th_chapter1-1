@@ -66,10 +66,10 @@ https://unseoJang.github.io/front-5th-chapter1-1/
 ### 심화과제
 
 #### 1) 해시 라우터 구현
-- [ ] location.hash를 이용하여 SPA 라우터 구현
-  - [ ] '/#/' (홈 페이지)
-  - [ ] '/#/login' (로그인 페이지) 
-  - [ ] '/#/profile' (프로필 페이지)
+- [x] location.hash를 이용하여 SPA 라우터 구현
+  - [x] '/#/' (홈 페이지)
+  - [x] '/#/login' (로그인 페이지) 
+  - [x] '/#/profile' (프로필 페이지)
  
 #### 2) 라우트 가드 구현
 - [x] 로그인 상태에 따른 접근 제어
