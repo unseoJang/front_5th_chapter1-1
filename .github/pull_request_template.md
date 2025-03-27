@@ -170,3 +170,11 @@ https://unseoJang.github.io/front_5th_chapter1-1/
 -> 라우팅 방식 자동 감지와 강제 사용 방식 분리 여부
 
 -> 랜더링 최적화를 위한 좋은 패턴
+
+
+## 밑에 캡쳐본은...항해쪽에 밀어넣으니 자꾸 test 통과가 안되서...캡쳐해서 넣습니다 ㅜㅜ 로컬에선 true 값 잘 떠요
+
+<img width="1205" alt="스크린샷 2025-03-27 오후 10 58 51" src="https://github.com/user-attachments/assets/7a896d95-56d0-46df-a7a1-dc8be413ec87" />
+<img width="1016" alt="스크린샷 2025-03-27 오후 10 53 24" src="https://github.com/user-attachments/assets/59ed3e9a-b8ba-4e5b-b948-5a2ff67de4a1" />
+<img width="1017" alt="스크린샷 2025-03-27 오후 10 53 16" src="https://github.com/user-attachments/assets/83e24618-6365-4c62-a51b-6c810019a4d7" />
+<img width="291" alt="스크린샷 2025-03-27 오후 9 30 15" src="https://github.com/user-attachments/assets/dc8bf5b0-bed1-4caf-8d2c-2ae62c856255" />
