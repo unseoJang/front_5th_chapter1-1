@@ -20,6 +20,7 @@ export const render = () => {
 
   // ✅ 로그인 상태 동기화
   auth.loggedIn = !!getLocalStorageItem("user");
+  auth.user = getLocalStorageItem("user") || null;
 
   // ✅ 페이지 콘텐츠 가져오기
   const pageContent = App(); // ex) LoginPage(), HomePage() 등
@@ -66,7 +67,8 @@ export const render = () => {
       e.preventDefault();
       removeLocalStorageItem("user");
       auth.loggedIn = false;
-      history.pushState(null, "", "/");
+      auth.user = null; // ✅ 이 줄 추가!
+      history.pushState(null, "", "/login");
       render();
     });
   }
