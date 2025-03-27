@@ -3,6 +3,8 @@ import {
   getLocalStorageItem,
   removeLocalStorageItem,
 } from "./utils/stroage.js";
+import { getCurrentPath, pathPrefix } from "./utils/route.js";
+
 import { attachLoginHandler } from "./login.js";
 import { profileConfimHandler } from "./components/ProfilePage.js";
 
@@ -23,59 +25,50 @@ export const render = () => {
   const root = document.getElementById("root");
   if (!root) return;
 
-  // ✅ 로그인 상태 동기화
   auth.loggedIn = !!getLocalStorageItem("user");
   auth.user = getLocalStorageItem("user") || null;
 
-  // ✅ 페이지 콘텐츠 가져오기
-  const pageContent = App(); // ex) LoginPage(), HomePage() 등
-
-  // ✅ 페이지 렌더링
+  const pageContent = App();
   root.innerHTML = Layout(pageContent);
 
-  // ✅ 모든 링크에 SPA 라우팅 적용
-  // document.querySelectorAll("a").forEach((el) => {
-  //   el.addEventListener("click", (e) => {
-  //     e.preventDefault();
-  //     const newPath = e.target.href.replace(location.origin, "");
-  //     history.pushState(null, "", newPath);
-  //     render();
-  //   });
-  // });
+  const path = getCurrentPath(); // ✅ 이제 base 제거된 경로가 들어옴
 
-  console.log("hash", location);
-  document.addEventListener("click", (e) => {
-    const target = e.target.closest("a");
-    if (!target || !target.getAttribute("href")) return;
-
-    // ❗ 이벤트 전파가 막혔다면 라우팅 중단
-    if (e.defaultPrevented) return;
-
-    e.preventDefault();
-    const newPath = target.getAttribute("href");
-    history.pushState(null, "", newPath);
-    render();
-  });
-
-  // ✅ 로그인 핸들러 연결
-  if (location.pathname === "/login") {
+  // ✅ 핸들러 연결 조건 수정
+  if (path === "/login") {
     attachLoginHandler();
   }
-
-  // ✅ 프로필 수정 핸들러 연결
-  if (location.pathname === "/profile") {
+  if (path === "/profile") {
     profileConfimHandler();
   }
 
-  // ✅ 로그아웃 버튼 핸들러 연결
+  // ✅ SPA 링크 클릭 처리
+  document.addEventListener("click", (e) => {
+    const target = e.target.closest("a");
+    if (!target || !target.getAttribute("href")) return;
+    if (e.defaultPrevented) return;
+
+    const href = target.getAttribute("href");
+
+    if (href.startsWith("#")) {
+      // 해시 라우터
+      e.preventDefault();
+      location.hash = href;
+    } else if (href.startsWith(pathPrefix())) {
+      // 기본 라우터
+      e.preventDefault();
+      history.pushState(null, "", href);
+      render();
+    }
+  });
+
   const logoutBtn = document.getElementById("logout");
   if (logoutBtn) {
     logoutBtn.addEventListener("click", (e) => {
       e.preventDefault();
       removeLocalStorageItem("user");
       auth.loggedIn = false;
-      auth.user = null; // ✅ 이 줄 추가!
-      history.pushState(null, "", "/login");
+      auth.user = null;
+      history.pushState(null, "", pathPrefix() + "/login");
       render();
     });
   }

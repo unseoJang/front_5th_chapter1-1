@@ -14,7 +14,7 @@ import { getCurrentPath } from "./utils/route.js";
 
 export const App = () => {
   const path = getCurrentPath();
-  console.log("path", path);
+  console.log("path", location.origin);
 
   if (path === "/login") {
     if (auth.loggedIn) {
