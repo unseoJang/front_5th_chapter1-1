@@ -43,6 +43,7 @@ export const render = () => {
       e.preventDefault();
       removeLocalStorageItem("user");
       auth.loggedIn = false;
+      auth.user = null; // ✅ 이 줄 추가!
       location.hash = "#/";
     });
   }
