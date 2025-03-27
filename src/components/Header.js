@@ -23,7 +23,7 @@ export const Header = ({ loggedIn } = {}) => {
     <nav class="bg-white shadow-md p-2 sticky top-14">
       <ul class="flex justify-around">
         <li>
-					<a href="${pathPrefix()}/" id="home-route" class="${location.pathname === "/" ? "text-blue-600 font-bold" : "text-gray-600"}">홈</a>
+					<a href="${pathPrefix()}/" id="home-route" class="${location.pathname === "/" || location.pathname === "/front_5th_chapter1-1/" ? "text-blue-600 font-bold" : "text-gray-600"}">홈</a>
 				</li>
         ${nav}
       </ul>
