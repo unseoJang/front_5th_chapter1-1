@@ -33,6 +33,8 @@ export const render = () => {
 
   const path = getCurrentPath(); // ✅ 이제 base 제거된 경로가 들어옴
 
+  console.log("path=>", path);
+
   // ✅ 핸들러 연결 조건 수정
   if (path === "/login") {
     attachLoginHandler();
