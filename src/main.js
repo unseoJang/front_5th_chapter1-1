@@ -9,6 +9,11 @@ import { profileConfimHandler } from "./components/ProfilePage.js";
 import { auth } from "./store/user.js";
 import { App } from "./App.js";
 
+// 해시가 없는 상태에서 진입했을 때 자동으로 #/ 붙이기
+if (!location.hash) {
+  location.replace(location.pathname + location.search + "#/");
+}
+
 // popstate 이벤트로 뒤/앞 이동 지원
 window.addEventListener("popstate", () => {
   render();
