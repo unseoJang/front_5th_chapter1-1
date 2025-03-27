@@ -1,6 +1,6 @@
-(function(){const s=document.createElement("link").relList;if(s&&s.supports&&s.supports("modulepreload"))return;for(const t of document.querySelectorAll('link[rel="modulepreload"]'))l(t);new MutationObserver(t=>{for(const r of t)if(r.type==="childList")for(const u of r.addedNodes)u.tagName==="LINK"&&u.rel==="modulepreload"&&l(u)}).observe(document,{childList:!0,subtree:!0});function o(t){const r={};return t.integrity&&(r.integrity=t.integrity),t.referrerPolicy&&(r.referrerPolicy=t.referrerPolicy),t.crossOrigin==="use-credentials"?r.credentials="include":t.crossOrigin==="anonymous"?r.credentials="omit":r.credentials="same-origin",r}function l(t){if(t.ep)return;t.ep=!0;const r=o(t);fetch(t.href,r)}})();const f=()=>{const e=location.hash;return e?e.replace("#","")||"/":location.pathname},i=()=>location.hash?"#":"",p=({loggedIn:e}={})=>{const s=f(),o=e?`
+(function(){const o=document.createElement("link").relList;if(o&&o.supports&&o.supports("modulepreload"))return;for(const t of document.querySelectorAll('link[rel="modulepreload"]'))n(t);new MutationObserver(t=>{for(const l of t)if(l.type==="childList")for(const a of l.addedNodes)a.tagName==="LINK"&&a.rel==="modulepreload"&&n(a)}).observe(document,{childList:!0,subtree:!0});function s(t){const l={};return t.integrity&&(l.integrity=t.integrity),t.referrerPolicy&&(l.referrerPolicy=t.referrerPolicy),t.crossOrigin==="use-credentials"?l.credentials="include":t.crossOrigin==="anonymous"?l.credentials="omit":l.credentials="same-origin",l}function n(t){if(t.ep)return;t.ep=!0;const l=s(t);fetch(t.href,l)}})();const b=()=>"/front_5th_chapter1-1/".replace(/\/$/,""),f=()=>{const e=location.hash;return e?e.replace("#","")||"/":location.pathname.replace(b(),"")||"/"},i=()=>location.hash?"#":b(),g=({loggedIn:e}={})=>{const o=f(),s=e?`
         <li>
-					<a href="${i()}/profile" id="profile-route" class="${s==="/profile"?"text-blue-600 font-bold":"text-gray-600"}">프로필</a>
+					<a href="${i()}/profile" id="profile-route" class="${o==="/profile"?"text-blue-600 font-bold":"text-gray-600"}">프로필</a>
 				</li>
         <li>
 					<a href="${i()}/" id="logout" class="text-gray-600">로그아웃</a>
@@ -15,22 +15,22 @@
         <li>
 					<a href="${i()}/" id="home-route" class="${location.pathname==="/"?"text-blue-600 font-bold":"text-gray-600"}">홈</a>
 				</li>
-        ${o}
+        ${s}
       </ul>
     </nav>
-  `},g=`
+  `},h=`
    <footer class="bg-gray-200 p-4 text-center">
         <p>&copy; 2024 항해플러스. All rights reserved.</p>
       </footer>
-`;function d(e){return JSON.parse(localStorage.getItem(e))||""}function c(e,s){return localStorage.setItem(e,JSON.stringify(s))}function h(e){return localStorage.removeItem(e)}const n={user:d("user"),isLoggedIn:!!d("user")},v=e=>{const s=e.includes('id="login-form"'),o=e.includes("404"),l=s||o;return`
+`;function u(e){const o=localStorage.getItem(e);if(!o)return null;try{return JSON.parse(o)}catch{return null}}function m(e,o){return localStorage.setItem(e,JSON.stringify(o))}function v(e){return localStorage.removeItem(e)}const r={user:u("user"),isLoggedIn:!!u("user")},x=e=>{const o=e.includes('id="login-form"'),s=e.includes("404"),n=o||s;return`
     <div class="bg-gray-100 min-h-screen flex justify-center">
       <div class="max-w-md w-full">
-        ${l?"":p({loggedIn:n.loggedIn})}
+        ${n?"":g({loggedIn:r.loggedIn})}
         ${e}
-        ${l?"":g}
+        ${n?"":h}
       </div>
     </div>
-  `},x=()=>{const e=document.getElementById("login-form");e&&e.addEventListener("submit",s=>{s.preventDefault();const o=e.querySelector("#username").value;if(o){const l={username:o,email:"",bio:""};c("user",l),c("loggedIn","true"),n.loggedIn=!0,n.loggedIn=!0,n.username=o,n.user=l,history.pushState(null,"","/"),a()}})},m=()=>`
+  `},y=()=>{const e=document.getElementById("login-form");e&&e.addEventListener("submit",o=>{o.preventDefault();const s=e.querySelector("#username").value;if(s){const n={username:s,email:"",bio:""};m("user",n),m("loggedIn","true"),r.loggedIn=!0,r.loggedIn=!0,r.username=s,r.user=n,history.pushState(null,"","/"),d()}})},p=()=>`
   <main class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
       <h1 class="text-2xl font-bold text-center text-blue-600 mb-8">항해플러스</h1>
@@ -52,7 +52,7 @@
       </div>
     </div>
   </main>
-`,y=()=>{var e;(e=document.getElementById("profile-form"))==null||e.addEventListener("submit",async s=>{s.preventDefault(),console.log("✅ 이벤트 핸들러 등록됨");const o={username:document.getElementById("username").value,email:document.getElementById("email").value,bio:document.getElementById("bio").value.trim()};console.log("🔧 저장할 user 값:",o),c("user",o),n.user={...o},history.pushState(null,"","/profile"),a(),document.body.dataset.rendered="true"})},w=()=>{const e=n.user||{username:"",email:"",bio:""};return document.body.dataset.rendered="false",`
+`,w=()=>{var e;(e=document.getElementById("profile-form"))==null||e.addEventListener("submit",async o=>{o.preventDefault(),console.log("✅ 이벤트 핸들러 등록됨");const s={username:document.getElementById("username").value,email:document.getElementById("email").value,bio:document.getElementById("bio").value.trim()};console.log("🔧 저장할 user 값:",s),m("user",s),r.user={...s},history.pushState(null,"","/profile"),d(),document.body.dataset.rendered="true"})},I=()=>{const e=r.user||{username:"",email:"",bio:""};return document.body.dataset.rendered="false",`
     <main class="p-4" role="main">
       <div class="bg-white p-8 rounded-lg shadow-md">
         <h2 class="text-2xl font-bold text-center text-blue-600 mb-8">
@@ -75,7 +75,7 @@
         </form>
       </div>
     </main>
-  `},b=()=>`
+  `},c=()=>`
 			<main class="p-4">
 				<div class="mb-4 bg-white rounded-lg shadow p-4">
 					<textarea class="w-full p-2 border rounded" placeholder="무슨 생각을 하고 계신가요?"></textarea>
@@ -165,7 +165,7 @@
 					</div>
 				</div>
 			</main>
-`,I=()=>`
+`,L=()=>`
   <main class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white p-8 rounded-lg shadow-md w-full text-center" style="max-width: 480px">
       <h1 class="text-2xl font-bold text-blue-600 mb-4">항해플러스</h1>
@@ -179,4 +179,4 @@
       </a>
     </div>
   </main>
-`,L=()=>{const e=f();return e==="/login"?n.loggedIn?(history.pushState(null,"","/"),b()):m():e==="/profile"?n.loggedIn?w():m():e==="/"?b():I()};window.addEventListener("popstate",()=>{a()});const a=()=>{const e=document.getElementById("root");if(!e)return;n.loggedIn=!!d("user"),n.user=d("user")||null;const s=L();e.innerHTML=v(s),document.addEventListener("click",l=>{const t=l.target.closest("a");if(!t||!t.getAttribute("href")||l.defaultPrevented)return;l.preventDefault();const r=t.getAttribute("href");history.pushState(null,"",r),a()}),location.pathname==="/login"&&x(),location.pathname==="/profile"&&y();const o=document.getElementById("logout");o&&o.addEventListener("click",l=>{l.preventDefault(),h("user"),n.loggedIn=!1,n.user=null,history.pushState(null,"","/login"),a()})};a();
+`,S=()=>{const e=f();return console.log("path",location.origin),e==="/front_5th_chapter1-1/"?c():e==="/login"?r.loggedIn?(history.pushState(null,"","/"),c()):p():e==="/profile"?r.loggedIn?I():p():e==="/"?c():L()};window.addEventListener("popstate",()=>{d()});const d=()=>{const e=document.getElementById("root");if(!e)return;r.loggedIn=!!u("user"),r.user=u("user")||null;const o=S();e.innerHTML=x(o);const s=f();console.log("path=>",s),s==="/login"&&y(),s==="/profile"&&w(),document.addEventListener("click",t=>{const l=t.target.closest("a");if(!l||!l.getAttribute("href")||t.defaultPrevented)return;const a=l.getAttribute("href");a.startsWith("#")?(t.preventDefault(),location.hash=a):a.startsWith(i())&&(t.preventDefault(),history.pushState(null,"",a),d())});const n=document.getElementById("logout");n&&n.addEventListener("click",t=>{t.preventDefault(),v("user"),r.loggedIn=!1,r.user=null,history.pushState(null,"",i()+"/login"),d()})};d();
