@@ -11,10 +11,16 @@ import { profileConfimHandler } from "./components/ProfilePage.js";
 import { auth } from "./store/user.js";
 import { App } from "./App.js";
 
-// 해시가 없는 상태에서 진입했을 때 자동으로 #/ 붙이기
-// if (!location.hash) {
-//   location.replace(location.pathname + location.search + "#/");
-// }
+// GitHub Pages + SPA: base URL 진입 시 자동으로 hash 라우팅 처리
+const isGithubPages = location.hostname === "unseojang.github.io";
+const isProjectRoot =
+  location.pathname === "/front_5th_chapter1-1/" ||
+  location.pathname === "/front_5th_chapter1-1/index.html";
+
+if (isGithubPages && isProjectRoot && !location.hash) {
+  // 자동으로 #/ 붙여서 SPA 라우터가 정상 작동하도록 만듦
+  location.replace(location.pathname + location.search + "#/");
+}
 
 // popstate 이벤트로 뒤/앞 이동 지원
 window.addEventListener("popstate", () => {
