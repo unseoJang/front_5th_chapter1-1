@@ -171,7 +171,6 @@ https://unseoJang.github.io/front_5th_chapter1-1/
 
 -> 랜더링 최적화를 위한 좋은 패턴
 
-<<<<<<< HEAD
 -> 현재 해시 라우터 / 기본 라우터를 동시에 지원하려고 getCurrentPath에서 조건 분기를 두었는데, 이런 방식이 좋은 구조인지 궁금합니다.
 
 -> pathPrefix() 함수가 암묵적으로 hash 여부를 판단하는 방식인데, 이보다 더 명확한 방식이 있을까요?
@@ -187,8 +186,6 @@ https://unseoJang.github.io/front_5th_chapter1-1/
 
 
 
-=======
->>>>>>> ed387d4 (📖doc: 문제점 추가)
 ## 밑에 캡쳐본은...항해쪽에 밀어넣으니 자꾸 test 통과가 안되서...캡쳐해서 넣습니다 ㅜㅜ 로컬에선 true 값 잘 떠요
 
 <img width="1205" alt="스크린샷 2025-03-27 오후 10 58 51" src="https://github.com/user-attachments/assets/7a896d95-56d0-46df-a7a1-dc8be413ec87" />
@@ -208,8 +205,4 @@ https://unseoJang.github.io/front_5th_chapter1-1/
 운서님의 라우터는 라우터라는 모듈이 명확하게 추상화 되지 않은것 같아요! 솔루션 코드보면서 비교해보시면 좋을 것 같습니다.
 사실 지금 고민인 것들은 두번째 과제에서 해결될 수 있을 것 같아요!
 제가 답변드릴만한 것은 드린 것 같습니다!
-<<<<<<< HEAD
 수고 많으셨어요 운서님!
-=======
-수고 많으셨어요 운서님!
->>>>>>> ed387d4 (📖doc: 문제점 추가)
